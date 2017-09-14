@@ -19,6 +19,13 @@
 # SOFTWARE.
 
 import itertools
+import sys
+
+
+if sys.version_info[0] == 2:
+    string_classes = basestring
+else:
+    string_classes = (str, bytes)
 
 
 def with_metaclass(meta, *bases):
