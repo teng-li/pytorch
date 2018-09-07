@@ -1,16 +1,15 @@
 import torch
 from torch._utils import _flatten_dense_tensors, _unflatten_dense_tensors
-import torch.distributed.c10d as dist
+import torch.distributed as dist
 from torch.nn.modules import Module
 from collections import defaultdict
 from torch.autograd import Variable
 
 
-class _DistributedDataParallelC10dCPU(Module):
-    r"""Implements distributed data parallelism for CPU at the module level
-    and it will use PyTorch's new distributed package: c10d.
+class DistributedDataParallelCPU(Module):
+    r"""Implements distributed data parallelism for CPU at the module level.
 
-    This module support the ``mpi``, ``gloo``, backends.
+    This module support the ``mpi``, ``gloo``, ``tcp`` backends.
 
     This container parallelizes the application of the given module by
     splitting the input across the specified devices by chunking in the batch
@@ -65,11 +64,11 @@ class _DistributedDataParallelC10dCPU(Module):
     Example::
 
         >>> torch.distributed.init_process_group(world_size=4, init_method='...')
-        >>> net = torch.nn._DistributedDataParallelC10dCPU(model)
+        >>> net = torch.nn.DistributedDataParallelCPU(model)
     """
 
     def __init__(self, module):
-        super(_DistributedDataParallelC10dCPU, self).__init__()
+        super(DistributedDataParallelCPU, self).__init__()
         self.module = module
         self.sync_parameters()
 

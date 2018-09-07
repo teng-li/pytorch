@@ -12,7 +12,7 @@ from functools import reduce, wraps
 
 import torch
 import torch.cuda
-import torch.distributed.c10d as dist
+import torch.distributed as dist
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
